@@ -1,4 +1,4 @@
-package com.djh.nettypro01.netty.simple;
+package com.djh.nettypro01.netty.tcpsimple;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -11,8 +11,17 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     //当通道就绪就会触发该方法
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("client " + ctx);
-        ctx.writeAndFlush(Unpooled.copiedBuffer("hello, server: miao~", CharsetUtil.UTF_8));
+//        System.out.println("client " + ctx);
+
+        //模拟粘包测试
+        for(int i = 0; i < 1000; i++) {
+            //固定长度拆包器测试
+//            ctx.writeAndFlush(Unpooled.copiedBuffer("hello, server: miao~", CharsetUtil.UTF_8));
+            //行拆包器测试
+//            ctx.writeAndFlush(Unpooled.copiedBuffer("hello, server: miao~\n", CharsetUtil.UTF_8));
+            //分隔符拆包器测试
+            ctx.writeAndFlush(Unpooled.copiedBuffer("hello, server: miao~$", CharsetUtil.UTF_8));
+        }
     }
 
     //当通道有读取事件时，会触发

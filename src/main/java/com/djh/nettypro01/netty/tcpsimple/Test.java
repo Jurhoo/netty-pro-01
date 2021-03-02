@@ -1,4 +1,4 @@
-package com.djh.nettypro01.netty.simple;
+package com.djh.nettypro01.netty.tcpsimple;
 
 import io.netty.util.NettyRuntime;
 
